@@ -26,6 +26,8 @@ def checker_db(tg_id, datetime):
             sql.execute('UPDATE users SET output=? WHERE tg_id=? AND datetime=? AND input_id=?;', (output, tg_id, dt.date.today(), input_id))
             connection.commit()
             return sql.execute('SELECT weight_up_to, output, weight_after FROM users WHERE tg_id=? AND datetime=?;', (tg_id, dt.date.today())).fetchall()
+    else:
+        return 'Данных пока не достаточно'
 
 
 def checker2_db(tg_id, datetime, output='NULL'):

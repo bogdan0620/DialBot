@@ -27,11 +27,11 @@ async def menu_add(message, state=GetData.add_data):
         return
 
     elif message.text == 'Вес до':
-        await message.answer('Введите вес до', reply_markup=ReplyKeyboardRemove)
+        await message.answer('Введите вес до', reply_markup=ReplyKeyboardRemove())
         await GetData.getting_weight_up_to.set()
 
     elif message.text == 'Вес после':
-        await message.answer('Введите вес после', reply_markup=ReplyKeyboardRemove)
+        await message.answer('Введите вес после', reply_markup=ReplyKeyboardRemove())
         await GetData.getting_weight_after.set()
 
     else:
@@ -66,7 +66,10 @@ async def add_weight_after(message, state=GetData.getting_weight_after):
 async def update_data(message):
     db = database.checker_db(message.from_user.id, datetime.date.today())
     out = ''
-    if db:
+    if db == 'Данных пока не достаточно':
+        await message.answer('Данных пока не достаточно', reply_markup=buttons.menu_update_kb())
+
+    elif db:
         for i in db:
             if i[2] == None:
                 out += f'{i[0]}\n{round(i[1], 1)}'
@@ -85,15 +88,15 @@ async def menu_update(message, state=UpdateData.update_data):
         return
 
     elif message.text == 'Вес до':
-        await message.answer('Введите вес до', reply_markup=ReplyKeyboardRemove)
+        await message.answer('Введите вес до', reply_markup=ReplyKeyboardRemove())
         await UpdateData.update_weight_up_to.set()
 
     elif message.text == 'Вес после':
-        await message.answer('Введите вес после', reply_markup=ReplyKeyboardRemove)
+        await message.answer('Введите вес после', reply_markup=ReplyKeyboardRemove())
         await UpdateData.update_weight_after.set()
 
     elif message.text == 'Итого':
-        await message.answer('Введите вес итого', reply_markup=ReplyKeyboardRemove)
+        await message.answer('Введите вес итого', reply_markup=ReplyKeyboardRemove())
         await UpdateData.update_total.set()
 
     else:
