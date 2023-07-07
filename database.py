@@ -14,7 +14,7 @@ sql.execute('CREATE TABLE IF NOT EXISTS users ('
             'datetime TEXT);')
 
 
-def checker_db(tg_id, datetime):
+def output_db(tg_id, datetime):
     user2 = sql.execute('SELECT datetime, input_id, weight_up_to, weight_after FROM users WHERE tg_id=?;', (tg_id,)).fetchall()
     if len(user2) >= 2:
         one: float = user2[-1][-2]
@@ -30,7 +30,7 @@ def checker_db(tg_id, datetime):
         return 'Данных пока не достаточно'
 
 
-def checker2_db(tg_id, datetime, output='NULL'):
+def checker2_db(tg_id, datetime, output=None):
     user2 = sql.execute('SELECT datetime, input_id, weight_up_to, weight_after FROM users WHERE tg_id=?;', (tg_id,)).fetchall()
     if user2[-1][0] == str(dt.date.today()):
         sql.execute('UPDATE users SET output=? WHERE tg_id=? AND datetime=?;', (output, tg_id, dt.date.today()))

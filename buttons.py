@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def menu_kb():
@@ -9,13 +9,20 @@ def menu_kb():
     return kb
 
 
-def menu_add_kb():
-    kb = ReplyKeyboardMarkup(resize_keyboard=True)
-    button = KeyboardButton('Вес до')
-    button2 = KeyboardButton('Вес после')
-    back = KeyboardButton('Назад')
-    kb.add(back)
+def imenu_kb():
+    kb = InlineKeyboardMarkup(row_width=2)
+    button = InlineKeyboardButton(text='Изменить', callback_data='edit')
+    kb.add(button)
+    return kb
+
+
+def imenu_add_kb():
+    kb = InlineKeyboardMarkup(row_width=2)
+    button = InlineKeyboardButton('Вес до', callback_data='weight_up_to')
+    button2 = InlineKeyboardButton('Вес после', callback_data='weight_after')
+    back = InlineKeyboardButton('Назад', callback_data='back')
     kb.add(button, button2)
+    kb.add(back)
     return kb
 
 
